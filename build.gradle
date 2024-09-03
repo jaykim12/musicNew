@@ -1,0 +1,71 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.3.1'
+    id 'io.spring.dependency-management' version '1.1.5'
+
+}
+
+group = "org.example"
+version = '0.0.1-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+
+    implementation 'software.amazon.awssdk:s3:2.20.62'
+    implementation 'com.amazonaws:aws-java-sdk-s3:1.12.545'
+
+
+
+
+    compileOnly 'org.projectlombok:lombok'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+    implementation 'mysql:mysql-connector-java:8.0.33'  // MySQL 커넥터
+    runtimeOnly 'com.mysql:mysql-connector-j'
+
+
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.security:spring-security-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    compileOnly group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.11.2'
+    runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.2'
+    runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.2'
+
+    // redis
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-redis', version: '2.4.10'
+
+    implementation('org.springframework.boot:spring-boot-starter-validation')
+
+
+
+    implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
+    implementation 'com.amazonaws:aws-java-sdk-s3:1.12.522' // AWS SDK v1 의존성 추가
+
+}
+
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
