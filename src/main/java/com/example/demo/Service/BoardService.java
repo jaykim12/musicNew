@@ -1,5 +1,6 @@
 package com.example.demo.Service;
 
+import com.example.demo.Dto.BoardListResponse;
 import com.example.demo.Dto.BoardRequestDto;
 import com.example.demo.Dto.BoardResponseDto;
 import com.example.demo.Entity.Board;
@@ -24,7 +25,10 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
+import java.util.Comparator;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -36,6 +40,17 @@ public class BoardService {
 
     private final AmazonS3 amazonS3;
     private String S3Bucket = "musicgurume";
+
+
+    public List<BoardListResponse> findAllBoards(){
+
+        return boardRepository.findAll()
+                .stream()
+                .map(BoardListResponse ::from)
+                .sorted(Comparator.comparing(BoardListResponse::getCreatedAt).reversed())
+                .collect(Collectors.toList());
+
+    }
 
 
 
@@ -50,7 +65,10 @@ public class BoardService {
                 file.getOriginalFilename(),
                 filePath,
                 user,
-                user.getUsername()
+                user.getUsername(),
+                requestDto.getCreatedAt(),
+                requestDto.getModifiedAt()
+
         );
         boardRepository.save(board);
 
@@ -131,7 +149,7 @@ public class BoardService {
             String path = new URL(filePath).getPath();
             filekey = path.substring(1);
             filekey = URLDecoder.decode(filekey, StandardCharsets.UTF_8);
-            System.out.println("Extact key" + filekey);
+            System.out.println("Extract key = " + filekey);
         }catch (MalformedURLException e){
             throw new CustomException(ErrorCode.INTERNAL_SERVER_ERROR);
         }

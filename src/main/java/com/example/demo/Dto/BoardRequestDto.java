@@ -4,6 +4,8 @@ import com.example.demo.Entity.User;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 public class BoardRequestDto {
@@ -17,6 +19,8 @@ public class BoardRequestDto {
 
     private String filepath;
     private User user;
+    private LocalDateTime createdAt;
+    private LocalDateTime modifiedAt;
 
 
 

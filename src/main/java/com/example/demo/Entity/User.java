@@ -2,6 +2,7 @@ package com.example.demo.Entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +12,8 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Setter
-public class User {
+@EntityListeners(AuditingEntityListener.class)
+public class User{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

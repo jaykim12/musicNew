@@ -60,6 +60,7 @@ public class WebSecurityConfig {
             "/oauth/kakao",
             "/main/health",
             "/main/address",
+            "/boards/all"
 //            "/boards/upload",
 //            "/boards/update/{boardId}",
 //            "/boards/delete/{boardId}"

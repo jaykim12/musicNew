@@ -1,14 +1,23 @@
 package com.example.demo.Entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor
 @Entity
 @Setter
+@EntityListeners(AuditingEntityListener.class)
 public class Board {
 
 
@@ -34,6 +43,17 @@ public class Board {
     private User user;
 
 
+    @CreatedDate
+    @Column(updatable = false, nullable = false)
+    private LocalDate createdAt;
+
+    @LastModifiedDate
+    private LocalDate modifiedAt;
+
+
+
+
+
 
 
 
@@ -55,13 +75,15 @@ public class Board {
 
     }
 
-    public Board(String title, String content, String filename, String filepath, User user,String username) {
+    public Board(String title, String content, String filename, String filepath, User user,String username,LocalDateTime createdAt,LocalDateTime modifiedAt) {
         this.title = title;
         this.content = content;
         this.filename = filename;
         this.filepath = filepath;
         this.user = user;
         this.username = user.getUsername();
+        this.createdAt = getCreatedAt();
+        this.modifiedAt = getModifiedAt();
     }
 
 
