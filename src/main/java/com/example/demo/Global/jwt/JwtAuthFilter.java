@@ -5,7 +5,7 @@ import com.example.demo.Entity.User;
 import com.example.demo.Global.exception.CustomException;
 import com.example.demo.Global.exception.ErrorCode;
 import com.example.demo.Repository.UserRepository;
-import com.example.demo.Global.security.WebSecurityConfig;
+import com.example.demo.Global.config.WebSecurityConfig;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -17,6 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.util.AntPathMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
@@ -42,12 +43,22 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         String uri = request.getRequestURI();
         boolean permit = false;
 
+//        for (String s : WebSecurityConfig.PERMIT_URI) {
+//            if (uri.contains(s)) {
+//                permit = true;
+//                break;
+//            }
+//        }
+
+        AntPathMatcher pathMatcher = new AntPathMatcher();
+
         for (String s : WebSecurityConfig.PERMIT_URI) {
-            if (uri.contains(s)) {
+            if (pathMatcher.match(s, uri)) {
                 permit = true;
                 break;
             }
         }
+
         if (!permit) {
             if (jwtUtil.validateToken(access_token)) {
                 setAuthentication(jwtUtil.getUserInfoFromToken(access_token));

@@ -51,12 +51,19 @@ public class BoardService {
                 .collect(Collectors.toList());
 
     }
+    @Transactional
+    public BoardListResponse searchIdBoard(Long boardId){
+
+        Board board = findBoardById(boardId);
+
+        return BoardListResponse.from(board);
+    }
 
 
 
 
     @Transactional
-    public ResponseEntity<Message> createBoard(MultipartFile file, User user, BoardRequestDto requestDto){
+    public ResponseEntity<Message> uploadMusic(MultipartFile file, User user, BoardRequestDto requestDto){
         String filePath = uploadFile(file);
 
         Board board = new Board(

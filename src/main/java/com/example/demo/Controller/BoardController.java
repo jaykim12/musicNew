@@ -28,11 +28,16 @@ public class BoardController {
         return ResponseEntity.status(HttpStatus.OK).body(boardService.findAllBoards());
 
     }
+    @GetMapping("/one/{boardId}")
+    public ResponseEntity<BoardListResponse>  searchIdBoard(@PathVariable Long boardId){
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(boardService.searchIdBoard(boardId));
+    }
 
     @PostMapping("/upload")
     public ResponseEntity<Message> uploadMusic(@AuthenticationPrincipal final UserDetailsImpl userDetails, BoardRequestDto requestDto, @RequestParam MultipartFile file){
 
-        return boardService.createBoard(file,userDetails.getUser(),requestDto);
+        return boardService.uploadMusic(file,userDetails.getUser(),requestDto);
     }
     @PutMapping("/update/{boardId}")
     public ResponseEntity<Message> updateMusic(@AuthenticationPrincipal final UserDetailsImpl userDetails,@PathVariable  Long boardId,BoardRequestDto requestDto,MultipartFile file){

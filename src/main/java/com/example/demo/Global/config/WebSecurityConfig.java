@@ -1,4 +1,4 @@
-package com.example.demo.Global.security;
+package com.example.demo.Global.config;
 
 import com.example.demo.Global.jwt.JwtAuthFilter;
 import com.example.demo.Global.jwt.JwtUtil;
@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
@@ -60,10 +61,12 @@ public class WebSecurityConfig {
             "/oauth/kakao",
             "/main/health",
             "/main/address",
-            "/boards/all"
+            "/boards/all",
+            "/boards/one/**"
 //            "/boards/upload",
 //            "/boards/update/{boardId}",
 //            "/boards/delete/{boardId}"
+
 
     };
 
