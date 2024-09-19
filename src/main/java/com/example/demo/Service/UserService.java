@@ -44,8 +44,19 @@ public class UserService {
         User user = userRepository.save(new User(
                 requestDto.getUserId(),
                 requestDto.getUsername(),
-                passwordEncoder.encode(requestDto.getPassword()), role)
+                passwordEncoder.encode(requestDto.getPassword()),
+                role,
+                requestDto.getCreatedAt(),
+                requestDto.getModifiedAt()
+                )
+
+
+
+
+
         );
+
+
 
         return new ResponseEntity<>(new Message("회원가입 성공", null), HttpStatus.OK);
     }
