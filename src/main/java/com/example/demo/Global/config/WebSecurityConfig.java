@@ -48,24 +48,19 @@ public class WebSecurityConfig {
             "/users/signup",
             "/users/signup/producer",
             "users/signup/player",
-//            "/users/signup/owner",
-//            "/users/signup/admin",
+
             "/users/login",
             "/users/checkId",
             "/users/checkNickname",
             "/users/oauth/kakao",
-//            "/main/beans",
-//            "/main/beans/search",
-//            "/main/bean/{cardId}",
-//            "/main/bean",
+
             "/oauth/kakao",
             "/main/health",
             "/main/address",
             "/boards/all",
             "/boards/one/**"
-//            "/boards/upload",
-//            "/boards/update/{boardId}",
-//            "/boards/delete/{boardId}"
+
+
 
 
     };

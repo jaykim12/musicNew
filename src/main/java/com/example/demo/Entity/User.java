@@ -2,8 +2,11 @@ package com.example.demo.Entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,19 +37,25 @@ public class User{
     @Enumerated(value = EnumType.STRING)
     private UserRoleEnum role;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Board> boards = new ArrayList<>();
+    private LocalDate createdAt;
+    private LocalDate modifiedAt;
+
+//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<Board> boards = new ArrayList<>();
+
+
 
 
 
 
     //일반 회원가입 생성자
     @Builder
-    public User(String userId,String username,String password, UserRoleEnum role){
+    public User(String userId, String username, String password, UserRoleEnum role){
         this.userId =userId;
         this.username =username;
         this.password = password;
-        this.role = role;
+
+
     }
 
 }

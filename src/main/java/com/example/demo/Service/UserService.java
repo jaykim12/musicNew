@@ -45,6 +45,9 @@ public class UserService {
                 requestDto.getUserId(),
                 requestDto.getUsername(),
                 passwordEncoder.encode(requestDto.getPassword()), role)
+
+
+
         );
 
         return new ResponseEntity<>(new Message("회원가입 성공", null), HttpStatus.OK);
