@@ -25,12 +25,14 @@ public enum ErrorCode {
     NONEXISTENT_COMMENT(HttpStatus.BAD_REQUEST, "해당 댓글이 존재하지 않습니다."),
     INVALID_TYPE(HttpStatus.BAD_REQUEST, "type을 확인해주세요."),
     NONEXISTENT_BOARD(HttpStatus.BAD_REQUEST,"해당 게시물이 없습니다"),
+    NONEXISTENT_LIKE(HttpStatus.BAD_REQUEST,"해당 좋아요가 존재하지 않습니다."),
 
 
     // 401
     UNAUTHORIZED_USER(HttpStatus.UNAUTHORIZED, "로그인이 필요합니다."),
     IO_EXCEPTION(HttpStatus.INTERNAL_SERVER_ERROR,"이미지 저장 중 내부 서버에서 문제가 발생했습니다"),
     INVALID_PASSWORD(HttpStatus.UNAUTHORIZED, "비밀번호가 일치하지 않습니다.");
+
 
 //    // 403
 //    FORBIDDEN_MEMBER(HttpStatus.FORBIDDEN, "권한이 없는 사용자입니다."),

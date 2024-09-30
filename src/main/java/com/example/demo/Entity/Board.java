@@ -39,6 +39,9 @@ public class Board {
 
 
 
+
+
+
     @ManyToOne(fetch =FetchType.LAZY)
     private User user;
 
@@ -49,6 +52,8 @@ public class Board {
 
     @LastModifiedDate
     private LocalDate modifiedAt;
+
+    private int likes = 0;
 
 
 
@@ -84,6 +89,16 @@ public class Board {
         this.username = user.getUsername();
         this.createdAt = getCreatedAt();
         this.modifiedAt = getModifiedAt();
+    }
+
+    public void plusLikes(){
+        this.likes += 1;
+    }
+
+    public void minusLikes(){
+        if(this.likes >0){
+            this.likes -= 1;
+        }
     }
 
 
