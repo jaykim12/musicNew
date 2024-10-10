@@ -14,4 +14,12 @@ public interface BoardRepository extends JpaRepository<Board,Long> {
     List<Board> findAll();
 
     List<Board> findByUser(User user);
+
+    List<Board> findByTitleContaining(String title);
+
+    List<Board> findByUsernameContaining(String username);
+
+    List<Board> findByContentContaining(String content);
+
+
 }
