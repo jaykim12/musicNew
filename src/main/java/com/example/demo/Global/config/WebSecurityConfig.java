@@ -38,27 +38,21 @@ public class WebSecurityConfig {
             "/configuration/security",
             "/swagger-ui.html",
             "/webjars/**",
-            /* swagger v3 */
+
             "/v3/api-docs/**",
             "/swagger-ui/**"
+
     };
 
     public static final String[] PERMIT_URI = {
-            "/users/signup/user",
+
             "/users/signup",
-            "/users/signup/producer",
-            "users/signup/player",
-
             "/users/login",
-            "/users/checkId",
-            "/users/checkNickname",
             "/users/oauth/kakao",
-
             "/oauth/kakao",
-            "/main/health",
-            "/main/address",
             "/boards/all",
-            "/boards/one/**"
+            "/boards/one/**",
+            "/boards/search"
 
 
 
@@ -81,23 +75,7 @@ public class WebSecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-//        http.csrf().disable();
-//
-//        // 기본 설정인 Session 방식은 사용하지 않고 JWT 방식을 사용하기 위한 설정
-//        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-//
-//        http.authorizeHttpRequests()
-//                // login 없이 허용하는 페이지
-//                .requestMatchers(PERMIT_URI).permitAll()
-//                .requestMatchers(PERMIT_URL_ARRAY).permitAll()
-//                .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
-//
-//                // 어떤 요청이든 '인증'
-//                .anyRequest().authenticated()
-//                // JWT 인증/인가를 사용하기 위한 설정
-//                .and().addFilterBefore(new JwtAuthFilter(jwtUtil, userRepository), UsernamePasswordAuthenticationFilter.class).cors();
-//
-//        return http.build();
+
         http.csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
@@ -119,8 +97,7 @@ public class WebSecurityConfig {
 
         CorsConfiguration config = new CorsConfiguration();
 
-        config.addAllowedOriginPattern("https://cuping.net");
-        config.addAllowedOriginPattern("http://localhost:3306");
+
 
         // 특정 헤더를 클라이언트 측에서 사용할 수 있게 지정
         // 만약 지정하지 않는다면, Authorization 헤더 내의 토큰 값을 사용할 수 없음
