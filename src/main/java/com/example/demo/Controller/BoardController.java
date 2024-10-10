@@ -54,5 +54,11 @@ public class BoardController {
 
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<Message>  searchBoard(@RequestParam String keyword, @RequestParam String filter ){
+        return boardService.searchBoard(keyword,filter);
+
+    }
+
 
 }
