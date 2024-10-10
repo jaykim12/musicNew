@@ -52,6 +52,7 @@ public class BoardService {
 
     }
     @Transactional
+    
     public BoardListResponse searchIdBoard(Long boardId){
 
         Board board = findBoardById(boardId);
@@ -115,6 +116,31 @@ public class BoardService {
         boardRepository.delete(board);
         return new ResponseEntity<>(new Message("게시글 삭제완료"),HttpStatus.OK);
     }
+    @Transactional
+    public ResponseEntity<Message> searchBoard(String keyword,String filter){
+
+        List<Board> boards;
+        switch (filter){
+            case "title":
+                boards = boardRepository.findByTitleContaining(keyword);
+                break;
+            case "username":
+                boards = boardRepository.findByUsernameContaining(keyword);
+                break;
+            case "content":
+                boards = boardRepository.findByContentContaining(keyword);
+                break;
+            default:
+                throw new CustomException(ErrorCode.NONEXISTENT_FILTER);
+
+        }
+        List<BoardListResponse> responseList = boards.stream()
+                .map(BoardListResponse::from)
+                .collect(Collectors.toList());
+
+        return new ResponseEntity<>(new Message("게시글 조회완료",responseList ),HttpStatus.OK);
+
+    }
 
     private String uploadFile(MultipartFile file){
         String filename = UUID.randomUUID() + "-" + file.getOriginalFilename();
@@ -135,6 +161,8 @@ public class BoardService {
         }
         return amazonS3Client.getUrl(S3Bucket, filename).toString();
     }
+
+
 
 
     private Board  findBoardById( Long boardId){
