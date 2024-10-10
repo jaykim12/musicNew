@@ -26,6 +26,7 @@ public enum ErrorCode {
     INVALID_TYPE(HttpStatus.BAD_REQUEST, "type을 확인해주세요."),
     NONEXISTENT_BOARD(HttpStatus.BAD_REQUEST,"해당 게시물이 없습니다"),
     NONEXISTENT_LIKE(HttpStatus.BAD_REQUEST,"해당 좋아요가 존재하지 않습니다."),
+    NONEXISTENT_FILTER(HttpStatus.BAD_REQUEST,"해당 필터가 없습니다"),
 
 
     // 401
